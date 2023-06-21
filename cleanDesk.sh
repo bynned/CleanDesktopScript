@@ -11,6 +11,6 @@ junk_folder_path="$desktop_path/$junk_folder"
 shopt -s extglob
 mv "$desktop_path"/!(Kaikkee2) "$junk_folder_path" #Move files and directories
 shopt -u extglob
-mv "$desktop_path"/*.lnk "$kaikkee_folder" #Move shortcuts, .lnk is the file extention for shortcuts used in windows
+mv "$desktop_path"/*.lnk "$junk_folder_path" #Move shortcuts, .lnk is the file extention for shortcuts used in windows
 
 echo "All files and directories from Desktop have been moved"
