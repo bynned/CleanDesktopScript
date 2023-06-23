@@ -11,6 +11,21 @@ junk_folder_path="$desktop_path/$junk_folder"
 shopt -s extglob
 mv "$desktop_path"/!(Kaikkee2) "$junk_folder_path" #Move files and directories
 shopt -u extglob
-mv "$desktop_path"/*.lnk "$junk_folder_path" #Move shortcuts, .lnk is the file extention for shortcuts used in windows
 
-echo "All files and directories from Desktop have been moved"
+if [ "$(uname)" = "Darwin" ]; then
+  # macOS
+  echo "Operating system: macOS"
+  mv "$desktop_path"/*.dmg "$junk_folder_path" # Move .dmg files to the folder
+  echo "All files and directories from Desktop have been moved"
+
+elif [ "$(expr substr $(uname -s) 1 10)" = "MINGW32_NT" ]; then
+  # Windows
+  echo "Operating system: Windows"
+  mv "$desktop_path"/*.lnk "$junk_folder_path" #Move shortcuts, .lnk is the file extention for shortcuts used in windows
+  echo "All files and directories from Desktop have been moved"
+
+else
+  echo "Unknown operating system"
+  exit 1 # exit script
+
+fi
