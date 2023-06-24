@@ -8,14 +8,15 @@ junk_folder="Kaikkee2" #Change this to your junk folder name
 desktop_path="$HOME/Desktop"
 junk_folder_path="$desktop_path/$junk_folder"
 
-shopt -s extglob
-mv "$desktop_path"/!(Kaikkee2) "$junk_folder_path" #Move files and directories
-shopt -u extglob
+for file in "$desktop_path"/*; do
+  if [ "$file" != "$junk_folder_path" ]; then
+    mv "$file" "$junk_folder_path"
+  fi
+done
 
 if [ "$(uname)" = "Darwin" ]; then
   # macOS
   echo "Operating system: macOS"
-  mv "$desktop_path"/*.dmg "$junk_folder_path" # Move .dmg files to the folder
   echo "All files and directories from Desktop have been moved"
 
 elif [ "$(expr substr $(uname -s) 1 10)" = "MINGW32_NT" ]; then
